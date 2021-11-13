@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+			"editorconfig.editorconfig",
+			"streetsidesoftware.code-spell-checker",
+			"irongeek.vscode-env",
+			"dbaeumer.vscode-eslint",
+			"eamodio.gitlens",
+			"bierner.markdown-preview-github-styles",
+			"pkief.material-icon-theme",
+			"esbenp.prettier-vscode",
+			"shardulm94.trailing-spaces",
+			"visualstudioexptteam.vscodeintellicode"
+		]
+}
