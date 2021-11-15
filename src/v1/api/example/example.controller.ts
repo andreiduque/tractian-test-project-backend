@@ -1,15 +1,20 @@
-import { FastifyInstance, FastifyPluginAsync } from "fastify";
+import { Router } from "express";
+import * as express from "express";
 import { exampleGetController } from "./example-get/example-get.controller";
 
-// eslint-disable-next-line require-await
-const exampleController: FastifyPluginAsync = async fastifyInstancePlugin => {
-	fastifyInstancePlugin.get("/example-get", exampleGetController);
-};
+/*
+ * Fastify.register(exampleController, {
+ * 	prefix: `/${apiVersion}/example`,
+ * });
+ */
 
 export const setExampleController = (
-	fastify: FastifyInstance,
+	mainRouter: Router,
 	apiVersion: string,
-) =>
-	fastify.register(exampleController, {
-		prefix: `/${apiVersion}/example`,
-	});
+) => {
+	const example = express.Router();
+
+	example.get("/get", exampleGetController);
+
+	mainRouter.use(`/${apiVersion}/example`, example);
+};

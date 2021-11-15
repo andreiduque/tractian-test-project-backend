@@ -1,7 +1,7 @@
-import { FastifyInstance } from "fastify";
+import { Router } from "express";
 import { setExampleController } from "./api/example/example.controller";
 import { API_VERSION } from "./config";
 
-export const setV1Controller = (fastify: FastifyInstance) => {
-	setExampleController(fastify, API_VERSION);
+export const setV1Controller = (mainRouter: Router) => {
+	setExampleController(mainRouter, API_VERSION);
 };
