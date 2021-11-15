@@ -1,7 +1,7 @@
 import { Column, Entity, Repository, PrimaryColumn } from "typeorm";
 import { RepositoryKeys } from "v1/tests/mocks/repository";
 
-@Entity()
+@Entity("example")
 export class ExampleEntity {
 	@PrimaryColumn()
 	public id: string;

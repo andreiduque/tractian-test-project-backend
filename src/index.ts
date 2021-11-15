@@ -1,7 +1,9 @@
-import Fastify from "fastify";
+import * as express from "express";
 import { connect } from "v1/config/database";
 import "reflect-metadata";
 import { setV1Controller } from "v1/v1.controller";
+
+const PORT = 4000;
 
 const server = async () => {
 	if (process.env.NODE_ENV !== "production") {
@@ -9,17 +11,13 @@ const server = async () => {
 		config();
 	}
 
-	const fastify = Fastify({
-		logger: true,
-	});
+	const index = express();
 
 	await connect();
 
-	setV1Controller(fastify);
+	setV1Controller(index);
 
-	fastify.listen(process.env.PORT!, process.env.HOST!, err => {
-		if (err) throw err;
-	});
+	index.listen(PORT, process.env.HOST!);
 };
 
 server();

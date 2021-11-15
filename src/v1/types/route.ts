@@ -1,14 +1,3 @@
-import { FastifyReply, FastifyRequest } from "fastify";
-import { RouteGenericInterface } from "fastify/types/route";
-import { Server, IncomingMessage, ServerResponse } from "http";
+import { Request, Response } from "express";
 
-export type Route = (
-	request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>,
-	reply: FastifyReply<
-		Server,
-		IncomingMessage,
-		ServerResponse,
-		RouteGenericInterface,
-		unknown
-	>,
-) => any;
+export type Route = (request: Request, response: Response) => any;
