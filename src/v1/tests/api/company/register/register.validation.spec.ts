@@ -26,7 +26,7 @@ describe("company register validation", () => {
 			});
 		});
 
-		it("should return validated params, with necessery params supplied", async () => {
+		it("should return validated params, with necessary params supplied", async () => {
 			let result: any;
 
 			try {
