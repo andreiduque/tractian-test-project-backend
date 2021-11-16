@@ -7,7 +7,6 @@
 		"@techmmunity/eslint-config": "^5.0.4",
 		"@types/express": "^4.17.13",
 		"@types/jest": "^27.0.2",
-		"@types/mongodb": "3.6.20",
 		"@types/node": "^16.11.1",
 		"@vercel/ncc": "^0.31.1",
 		"dotenv": "^10.0.0",
@@ -25,18 +24,18 @@
 		"prepare": "husky install",
 		"husky:pre-commit": "tsc && lint-staged",
 		"dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
-		"test": "jest",
-		"test:cov": "jest --coverage",
+		"test": "jest --passWithNoTests",
+		"test:cov": "jest --coverage --passWithNoTests",
 		"format": "eslint . --fix --quiet",
 		"lint": "eslint . --quiet",
 		"build": "ncc build src/index.ts -o dist -m -s",
 		"start": "node index.js"
 	},
 	"dependencies": {
+		"@techmmunity/symbiosis": "^0.0.28",
+		"@techmmunity/symbiosis-mongodb": "^0.0.4",
 		"express": "^4.17.1",
-		"mongodb": "3.7.3",
 		"reflect-metadata": "^0.1.13",
-		"typeorm": "^0.2.38",
 		"yup": "^0.32.11"
 	}
 }
