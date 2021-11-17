@@ -1,14 +1,15 @@
 import { v4 } from "uuid";
-import { register } from "v1/api/user/register/register.service";
+import { register } from "v1/api/unit/register/register.service";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { companyMock } from "v1/tests/mocks/company";
+import { unitMock } from "v1/tests/mocks/unit";
 import { userMock } from "v1/tests/mocks/user";
 import { CustomError } from "v1/utils/error";
 
 describe("user register service", () => {
 	const validCompanyName = "test company";
 	const validDescription = "test description";
-	const validName = "test user";
+	const validName = "test unit";
 	const validCompanyId = v4();
 
 	describe("Sucessful", () => {
@@ -21,20 +22,20 @@ describe("user register service", () => {
 				description: validDescription,
 			});
 
-			const user = userMock.doc({
+			const unit = unitMock.doc({
 				name: validName,
 				companyId: validCompanyId,
 			});
 
 			companyMock.repository.findOne.mockResolvedValue(company);
 
-			userMock.repository.save.mockResolvedValue(user);
+			unitMock.repository.save.mockResolvedValue(unit);
 
 			try {
 				await register(
 					{
 						companyRepository: companyMock.repository,
-						userRepository: userMock.repository,
+						unitRepository: unitMock.repository,
 					},
 					{ name: validName, companyId: validCompanyId },
 				);
@@ -43,7 +44,7 @@ describe("user register service", () => {
 			}
 
 			expect(result).toBeUndefined();
-			expect(userMock.repository.save).toHaveBeenCalledWith(
+			expect(unitMock.repository.save).toHaveBeenCalledWith(
 				expect.objectContaining({
 					name: validName,
 					companyId: validCompanyId,
@@ -62,7 +63,7 @@ describe("user register service", () => {
 				result = await register(
 					{
 						companyRepository: companyMock.repository,
-						userRepository: userMock.repository,
+						unitRepository: unitMock.repository,
 					},
 					{ name: validName, companyId: validCompanyId },
 				);

@@ -8,12 +8,15 @@ import {
 import { Repository } from "@techmmunity/symbiosis-mongodb";
 import { RepositoryKeys } from "v1/tests/mocks/repository";
 
-@Entity("companies")
-export class CompanyEntity {
+@Entity("units")
+export class UnitEntity {
 	@PrimaryGeneratedColumn({
 		name: "_id",
 	})
 	public id: string;
+
+	@Column()
+	public companyId: string;
 
 	@Column()
 	public name: string;
@@ -25,7 +28,7 @@ export class CompanyEntity {
 	public createdAt: string;
 }
 
-export type CompanyRepository = Pick<Repository<CompanyEntity>, RepositoryKeys>;
+export type UnitRepository = Pick<Repository<UnitEntity>, RepositoryKeys>;
 
-export const getCompanyRepository = () =>
-	getGlobalRepository<Repository<CompanyEntity>>(CompanyEntity);
+export const getUnitRepository = () =>
+	getGlobalRepository<Repository<UnitEntity>>(UnitEntity);
