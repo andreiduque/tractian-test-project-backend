@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"dependencies": {
 		"@techmmunity/symbiosis": "^0.0.28",
-		"@techmmunity/symbiosis-mongodb": "^0.0.4",
+		"@techmmunity/symbiosis-mongodb": "^0.0.5",
+		"@techmmunity/utils": "^1.8.1",
 		"express": "^4.17.1",
 		"reflect-metadata": "^0.1.13",
 		"uuid": "^8.3.2",

@@ -606,10 +606,10 @@
     eslint-plugin-sonarjs "^0.10.0"
     typescript "^4.2.4"
 
-"@techmmunity/symbiosis-mongodb@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@techmmunity/symbiosis-mongodb/-/symbiosis-mongodb-0.0.4.tgz#040fd1e3afe3b3b0b48d05125d0bea583855c8fb"
-  integrity sha512-JWuqmbXYmLEPZS5WihQ8JM6G1L2rxCW9oT4sN82IKFgQQJUCKU8Q6zl64RHv6vsqNvSgnTsJ92VelPqdk5iyhA==
+"@techmmunity/symbiosis-mongodb@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@techmmunity/symbiosis-mongodb/-/symbiosis-mongodb-0.0.5.tgz#d27603a4148f5e5f77cb3dd04c3974a6983c43df"
+  integrity sha512-hw2rSdE6uT/GepuDOYOzm+8ZlLZAPB4SRLVwSkoWV+dIrpqxnyoOoNmFo/GmB658gvIJGsDGiadUQbOfviwfcA==
   dependencies:
     "@techmmunity/utils" "^1.8.1"
     mongodb "^4.1.4"
