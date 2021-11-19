@@ -4,7 +4,7 @@ import { validation } from "v1/api/user/list-by-page/list-by-page.validation";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 
-describe("listByPage validation", () => {
+describe("user listByPage validation", () => {
 	const validPage = 1;
 	const validCompanyId = v4();
 

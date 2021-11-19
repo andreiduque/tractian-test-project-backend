@@ -4,7 +4,7 @@ import { validation } from "v1/api/unit/register/register.validation";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 
-describe("user register validation", () => {
+describe("unit register validation", () => {
 	const validName = "test unit";
 	const validCompanyId = v4();
 	const validDescription = "test description";

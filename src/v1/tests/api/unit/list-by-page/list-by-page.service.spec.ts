@@ -1,33 +1,33 @@
 import { v4 } from "uuid";
-import { listByPage } from "v1/api/user/list-by-page/list-by-page.service";
+import { listByPage } from "v1/api/unit/list-by-page/list-by-page.service";
 import { StatusCodeEnum } from "v1/enum/status-code";
-import { userMock } from "v1/tests/mocks/user";
+import { unitMock } from "v1/tests/mocks/unit";
 import { CustomError } from "v1/utils/error";
 
-describe("user listByPage service", () => {
+describe("unit listByPage service", () => {
 	const validPage = 1;
 	const validName = "test name";
 	const validCompanyId = v4();
 
-	let user: any;
+	let unit: any;
 
 	beforeAll(() => {
-		user = userMock.doc({
+		unit = unitMock.doc({
 			companyId: validCompanyId,
 			name: validName,
 		});
 	});
 
 	describe("Successful", () => {
-		it("should return an array of users", async () => {
+		it("should return an array of units", async () => {
 			let result: any;
 
-			userMock.repository.find.mockResolvedValue([user]);
+			unitMock.repository.find.mockResolvedValue([unit]);
 
 			try {
 				result = await listByPage(
 					{
-						userRepository: userMock.repository,
+						unitRepository: unitMock.repository,
 					},
 					{
 						page: validPage,
@@ -38,18 +38,18 @@ describe("user listByPage service", () => {
 				result = err;
 			}
 
-			expect(result).toStrictEqual([user]);
+			expect(result).toStrictEqual([unit]);
 		});
 
-		it("should return the array of users from the first page", async () => {
+		it("should return the array of units from the first page", async () => {
 			let result: any;
 
-			userMock.repository.find.mockResolvedValue([user]);
+			unitMock.repository.find.mockResolvedValue([unit]);
 
 			try {
 				result = await listByPage(
 					{
-						userRepository: userMock.repository,
+						unitRepository: unitMock.repository,
 					},
 					{ companyId: validCompanyId },
 				);
@@ -57,20 +57,20 @@ describe("user listByPage service", () => {
 				result = err;
 			}
 
-			expect(result).toStrictEqual([user]);
+			expect(result).toStrictEqual([unit]);
 		});
 	});
 
 	describe("Failure", () => {
-		it("should throw a CustomError with a No user found for this page message", async () => {
+		it("should throw a CustomError with a No unit found for this page message", async () => {
 			let result: any;
 
-			userMock.repository.find.mockResolvedValue([]);
+			unitMock.repository.find.mockResolvedValue([]);
 
 			try {
 				result = await listByPage(
 					{
-						userRepository: userMock.repository,
+						unitRepository: unitMock.repository,
 					},
 					{
 						page: 2,
@@ -82,19 +82,19 @@ describe("user listByPage service", () => {
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("No user found for this page");
+			expect(result.message).toBe("No unit found for this page");
 			expect(result.statusCode).toBe(StatusCodeEnum.NOT_FOUND);
 		});
 
-		it("should throw a CustomError with a No user found for this page message, because of invalid companyId", async () => {
+		it("should throw a CustomError with a No unit found for this page message, because of invalid companyId", async () => {
 			let result: any;
 
-			userMock.repository.find.mockResolvedValue([]);
+			unitMock.repository.find.mockResolvedValue([]);
 
 			try {
 				result = await listByPage(
 					{
-						userRepository: userMock.repository,
+						unitRepository: unitMock.repository,
 					},
 					{
 						page: 2,
@@ -106,7 +106,7 @@ describe("user listByPage service", () => {
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("No user found for this page");
+			expect(result.message).toBe("No unit found for this page");
 			expect(result.statusCode).toBe(StatusCodeEnum.NOT_FOUND);
 		});
 	});
