@@ -3,7 +3,7 @@ import { StatusCodeEnum } from "v1/enum/status-code";
 import { companyMock } from "v1/tests/mocks/company";
 import { CustomError } from "v1/utils/error";
 
-describe("listByPage service", () => {
+describe("company listByPage service", () => {
 	const validPage = 1;
 	const validName = "test name";
 
@@ -16,7 +16,7 @@ describe("listByPage service", () => {
 	});
 
 	describe("Successful", () => {
-		it("should return an array of employees", async () => {
+		it("should return an array of companies", async () => {
 			let result: any;
 
 			companyMock.repository.find.mockResolvedValue([company]);
@@ -37,7 +37,7 @@ describe("listByPage service", () => {
 			expect(result).toStrictEqual([company]);
 		});
 
-		it("should return the array of employees from the first page", async () => {
+		it("should return the array of companies from the first page", async () => {
 			let result: any;
 
 			companyMock.repository.find.mockResolvedValue([company]);

@@ -3,10 +3,9 @@ import { register } from "v1/api/unit/register/register.service";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { companyMock } from "v1/tests/mocks/company";
 import { unitMock } from "v1/tests/mocks/unit";
-import { userMock } from "v1/tests/mocks/user";
 import { CustomError } from "v1/utils/error";
 
-describe("user register service", () => {
+describe("unit register service", () => {
 	const validCompanyName = "test company";
 	const validDescription = "test description";
 	const validName = "test unit";

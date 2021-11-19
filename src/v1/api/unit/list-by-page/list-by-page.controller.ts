@@ -1,13 +1,14 @@
-import { getCompanyRepository } from "v1/api/company/company.entity";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { Route } from "v1/types/route";
 import { getUnitRepository } from "../unit.entity";
-import { register } from "./register.service";
-import { validation } from "./register.validation";
+import { listByPage } from "./list-by-page.service";
+import { validation } from "./list-by-page.validation";
 
-export const registerController: Route = async (request, reply) => {
+export const listByPageController: Route = async (request, reply) => {
+	let result;
+
 	const params = {
-		...(request.body as any),
+		...(request.query as any),
 		companyId: (request.params as any).id,
 	};
 
@@ -16,14 +17,20 @@ export const registerController: Route = async (request, reply) => {
 
 		const unitRepository = getUnitRepository();
 
-		const companyRepository = getCompanyRepository();
-
-		await register({ unitRepository, companyRepository }, validatedParams);
+		result = await listByPage(
+			{
+				unitRepository,
+			},
+			validatedParams,
+		);
 	} catch (err: any) {
+		// eslint-disable-next-line no-console
+		console.error(err);
+
 		return reply
 			.status(err.statusCode || StatusCodeEnum.INTERNAL)
 			.send({ error: err.message });
 	}
 
-	return reply.status(StatusCodeEnum.CREATED).send();
+	return reply.send(result);
 };
