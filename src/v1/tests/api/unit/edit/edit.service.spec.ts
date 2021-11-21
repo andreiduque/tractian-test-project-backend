@@ -20,6 +20,7 @@ describe("unit edit service", () => {
 				id: validId,
 				name: validName,
 				companyId: validCompanyId,
+				description: validDescription,
 			});
 
 			const company = companyMock.doc({
@@ -39,7 +40,12 @@ describe("unit edit service", () => {
 						companyRepository: companyMock.repository,
 						unitRepository: unitMock.repository,
 					},
-					{ id: validId, name: validName, companyId: validCompanyId },
+					{
+						id: validId,
+						name: validName,
+						companyId: validCompanyId,
+						description: validDescription,
+					},
 				);
 			} catch (err: any) {
 				result = err;
@@ -51,6 +57,7 @@ describe("unit edit service", () => {
 					id: validId,
 					name: validName,
 					companyId: validCompanyId,
+					description: validDescription,
 				}),
 			);
 		});
@@ -62,6 +69,7 @@ describe("unit edit service", () => {
 				id: validId,
 				name: validName,
 				companyId: validCompanyId,
+				description: validDescription,
 			});
 
 			const company = companyMock.doc({
