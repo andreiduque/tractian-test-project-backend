@@ -2,11 +2,12 @@ import { StatusCodeEnum } from "v1/enum/status-code";
 import { StatusTypeEnum } from "v1/enum/status-type";
 import { CustomError } from "v1/utils/error";
 import * as fs from "fs";
-import { validation } from "v1/api/asset/register/register.validation";
-import { RegisterParams } from "v1/api/asset/register/register.service";
 import { v4 } from "uuid";
+import { validation } from "v1/api/asset/edit/edit.validation";
+import { EditAssetParams } from "v1/api/asset/edit/edit.service";
 
-describe("asset register validation", () => {
+describe("asset edit validation", () => {
+	const validId = v4();
 	const validUnitId = v4();
 	const validImage = {
 		buffer: fs.readFileSync("src/v1/tests/mocks/asset/file/testImage.png"),
@@ -20,11 +21,12 @@ describe("asset register validation", () => {
 	const validHealthLevel = 50;
 
 	describe("Successful", () => {
-		it("should return validated params", async () => {
+		it("should return validated params, with all params supplied", async () => {
 			let result: any;
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -39,6 +41,7 @@ describe("asset register validation", () => {
 			}
 
 			expect(result).toStrictEqual({
+				id: validId,
 				unitId: validUnitId,
 				image: validImage,
 				name: validName,
@@ -47,6 +50,22 @@ describe("asset register validation", () => {
 				owner: validOwner,
 				status: validStatus,
 				healthLevel: validHealthLevel,
+			});
+		});
+
+		it("should return validated params, with only necessary params supplied", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					id: validId,
+				});
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result).toStrictEqual({
+				id: validId,
 			});
 		});
 	});
@@ -58,6 +77,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: {
 						buffer: fs.readFileSync(
@@ -88,6 +108,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: "a",
@@ -111,6 +132,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: "a".repeat(201),
@@ -134,6 +156,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -159,6 +182,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -182,6 +206,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -205,6 +230,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -228,6 +254,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -251,6 +278,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -276,6 +304,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -297,163 +326,8 @@ describe("asset register validation", () => {
 		});
 	});
 
-	// eslint-disable-next-line sonarjs/cognitive-complexity
 	describe("Undefined params", () => {
-		it("should throw a CustomError with undefined unitId param message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					image: validImage,
-					name: validName,
-					description: validDescription,
-					model: validModel,
-					owner: validOwner,
-					status: validStatus,
-					healthLevel: validHealthLevel,
-				} as RegisterParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("unitId is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-
-		it("should throw a CustomError with undefined image param message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					unitId: validUnitId,
-					name: validName,
-					description: validDescription,
-					model: validModel,
-					owner: validOwner,
-					status: validStatus,
-					healthLevel: validHealthLevel,
-				} as RegisterParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("image is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-
-		it("should throw a CustomError with undefined name param message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					unitId: validUnitId,
-					image: validImage,
-					description: validDescription,
-					model: validModel,
-					owner: validOwner,
-					status: validStatus,
-					healthLevel: validHealthLevel,
-				} as RegisterParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("name is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-
-		it("should throw a CustomError with undefined description param message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					unitId: validUnitId,
-					image: validImage,
-					name: validName,
-					model: validModel,
-					owner: validOwner,
-					status: validStatus,
-					healthLevel: validHealthLevel,
-				} as RegisterParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("description is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-
-		it("should throw a CustomError with undefined model param message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					unitId: validUnitId,
-					image: validImage,
-					name: validName,
-					description: validDescription,
-					owner: validOwner,
-					status: validStatus,
-					healthLevel: validHealthLevel,
-				} as RegisterParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("model is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-
-		it("should throw a CustomError with undefined owner param message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					unitId: validUnitId,
-					image: validImage,
-					name: validName,
-					description: validDescription,
-					model: validModel,
-					status: validStatus,
-					healthLevel: validHealthLevel,
-				} as RegisterParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("owner is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-
-		it("should throw a CustomError with undefined status param message", async () => {
-			let result: any;
-
-			try {
-				result = await validation({
-					unitId: validUnitId,
-					image: validImage,
-					name: validName,
-					description: validDescription,
-					model: validModel,
-					owner: validOwner,
-					healthLevel: validHealthLevel,
-				} as RegisterParams);
-			} catch (err: any) {
-				result = err;
-			}
-
-			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("status is a required field");
-			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
-		});
-
-		it("should throw a CustomError with undefined healthLevel param message", async () => {
+		it("should throw a CustomError with a undefined id params message", async () => {
 			let result: any;
 
 			try {
@@ -465,24 +339,52 @@ describe("asset register validation", () => {
 					model: validModel,
 					owner: validOwner,
 					status: validStatus,
-				} as RegisterParams);
+					healthLevel: validHealthLevel,
+				} as EditAssetParams);
 			} catch (err: any) {
 				result = err;
 			}
 
 			expect(result instanceof CustomError).toBeTruthy();
-			expect(result.message).toBe("healthLevel is a required field");
+			expect(result.message).toBe("id is a required field");
 			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
 		});
 	});
 
 	// eslint-disable-next-line sonarjs/cognitive-complexity
 	describe("Invalid type", () => {
+		it("should throw a CustomError with a invalid id type param message", async () => {
+			let result: any;
+
+			try {
+				result = await validation({
+					id: 42 as any,
+					unitId: validUnitId,
+					image: validImage,
+					name: validName,
+					description: validDescription,
+					model: validModel,
+					owner: validOwner,
+					status: validStatus,
+					healthLevel: validHealthLevel,
+				});
+			} catch (err: any) {
+				result = err;
+			}
+
+			expect(result instanceof CustomError).toBeTruthy();
+			expect(result.message).toBe(
+				"id must be a `string` type, but the final value was: `42`.",
+			);
+			expect(result.statusCode).toBe(StatusCodeEnum.BAD_REQUEST);
+		});
+
 		it("should throw a CustomError with a invalid unitId type param message", async () => {
 			let result: any;
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: 42 as any,
 					image: validImage,
 					name: validName,
@@ -508,6 +410,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: 42 as any,
@@ -533,6 +436,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -558,6 +462,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -583,6 +488,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -608,6 +514,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
@@ -633,6 +540,7 @@ describe("asset register validation", () => {
 
 			try {
 				result = await validation({
+					id: validId,
 					unitId: validUnitId,
 					image: validImage,
 					name: validName,
