@@ -4,7 +4,7 @@ import { validation } from "v1/api/unit/edit/edit.validation";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 
-describe("user edit validation", () => {
+describe("unit edit validation", () => {
 	const validName = "test user";
 	const validId = v4();
 	const validCompanyId = v4();
