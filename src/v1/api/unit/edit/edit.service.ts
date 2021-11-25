@@ -2,7 +2,7 @@ import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 import { cleanObj } from "@techmmunity/utils";
 import { CompanyRepository } from "v1/api/company/company.entity";
-import { companyNotRegistered } from "v1/api/user/helpers/company-not-registered";
+import { companyNotRegistered } from "v1/utils/company-not-registered";
 import { UnitRepository } from "../unit.entity";
 
 interface Injectables {

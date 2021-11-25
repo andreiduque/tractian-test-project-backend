@@ -1,4 +1,4 @@
-import { companyNotRegistered } from "v1/api/user/helpers/company-not-registered";
+import { companyNotRegistered } from "v1/utils/company-not-registered";
 import { StatusCodeEnum } from "v1/enum/status-code";
 import { CustomError } from "v1/utils/error";
 import { CompanyRepository } from "../company.entity";
