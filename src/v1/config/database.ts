@@ -1,5 +1,6 @@
 import { setGlobalConnection } from "@techmmunity/symbiosis";
 import { Connection } from "@techmmunity/symbiosis-mongodb";
+import { AssetEntity } from "v1/api/asset/asset.entity";
 import { CompanyEntity } from "v1/api/company/company.entity";
 import { UnitEntity } from "v1/api/unit/unit.entity";
 import { UserEntity } from "v1/api/user/user.entity";
@@ -8,7 +9,7 @@ import { UserEntity } from "v1/api/user/user.entity";
 export const connect = async () => {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	const connection = new Connection({
-		entities: [CompanyEntity, UserEntity, UnitEntity],
+		entities: [CompanyEntity, UserEntity, UnitEntity, AssetEntity],
 		databaseConfig: {
 			databaseName: "Tractian-test",
 			url: process.env.MONGODB_URL!,

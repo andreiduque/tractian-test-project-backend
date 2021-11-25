@@ -1,6 +1,6 @@
 import { CompanyRepository } from "v1/api/company/company.entity";
-import { companyNotRegistered } from "v1/api/user/helpers/company-not-registered";
 import { StatusCodeEnum } from "v1/enum/status-code";
+import { companyNotRegistered } from "v1/utils/company-not-registered";
 import { CustomError } from "v1/utils/error";
 import { UnitEntity, UnitRepository } from "../unit.entity";
 
