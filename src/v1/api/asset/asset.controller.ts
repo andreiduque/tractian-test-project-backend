@@ -5,6 +5,7 @@ import { registerController } from "./register/register.controller";
 import { editAssetController } from "./edit/edit.controller";
 import { listByPage } from "./list-by-page/list-by-page.service";
 import { listByPageController } from "./list-by-page/list-by-page.controller";
+import { deleteAssetController } from "./delete/delete.controller";
 
 export const setAssetController = (mainRouter: Router, apiVersion: string) => {
 	const assetController = express.Router();
@@ -26,6 +27,8 @@ export const setAssetController = (mainRouter: Router, apiVersion: string) => {
 	);
 
 	assetController.get("/:id/list-by-page", listByPageController);
+
+	assetController.delete(":id/asset/delete", deleteAssetController);
 
 	mainRouter.use(`/${apiVersion}`, assetController);
 };
